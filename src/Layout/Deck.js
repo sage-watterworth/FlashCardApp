@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { readDeck, deleteDeck, deleteCard } from '../utils/api/index';
 
 
-export function Deck (){
+function Deck (){
     const history = useHistory();
     const { deckId } = useParams();
     const [deck, setDeck] = useState();
@@ -18,7 +18,7 @@ export function Deck (){
           loadDecks();
           setDidDelete(false);
         }, [deckId, didDelete]);
-    }
+
 
         function deckDeleteHandler(deckId) {
             const confirmed = window.confirm('Are you sure you want to delete this deck?');
@@ -55,7 +55,7 @@ export function Deck (){
             </li>
         </div>
         )
-    });
+          });
 
 
         return (
@@ -91,4 +91,6 @@ export function Deck (){
               </Link>
         </div>
     </div>
-        )
+        )};
+
+export default Deck;
