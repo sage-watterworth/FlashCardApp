@@ -5,10 +5,10 @@ import EditCard from "./EditCard";
 
 
 function Deck (){
-    const history = useHistory();
-    const { deckId} = useParams();
-    const [deck, setDeck] = useState();
-    const [didDelete, setDidDelete] = useState(false);
+    // const history = useHistory();
+    // const { deckId} = useParams();
+    // const [deck, setDeck] = useState();
+    // const [didDelete, setDidDelete] = useState(false);
 
 
     //   useEffect(() => {
@@ -69,31 +69,31 @@ function Deck (){
                 <nav type="breadcrumb">
                     <ol type="breadcrumb">
                         <li type="breadcrumb-item"><a href="/">Home</a></li>
-                        <li type="breadcrumb-item active" current="page">{deck.name}</li>
+                        <li type="breadcrumb-item active" current="page">"deck name"</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div>
-            <li key={deck.id}>
-                <h1>{deck.name}</h1>
-                <p>{deck.description}</p>
+            <li key="deck id">
+                <h1>"deck name"</h1>
+                <p>"deck description"</p>
             </li>
         </div>
         <div>
 
         {/* onClick= {() => deckDeleteHandler(deck.id)} */}
                <button type = "button" >Delete</button>
-              <Link to={`/decks/${deckId}/study/`}>
+              {/* <Link to={`/decks/${deckId}/study/`}> */}
                 <button type="button">
               Study
                 </button>
-             </Link>
-              <Link to={`/decks/${deckId}`}>
+             {/* </Link> */}
+              {/* <Link to={`/decks/${deckId}`}> */}
                 <button type="button">
               View
                 </button>
-              </Link>
+              {/* </Link> */}
         </div>
         <div>
              <li key="card id">

@@ -3,9 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { readDeck, updateDeck } from '../utils/api/index';
 
 function EditDeck() {
-  const history = useHistory();
-  const { deckId } = useParams();
-  const [deck, setDeck] = useState({});
+//   const history = useHistory();
+//   const { deckId } = useParams();
+//   const [deck, setDeck] = useState({});
 
     // useEffect(() => {
     //     async function loadDecks() {
@@ -46,7 +46,9 @@ return(
       <nav label="breadcrumb">
         <ol type="breadcrumb">
           <li type="breadcrumb-item"><a href="/">Home</a></li>
-          <li type="breadcrumb-item"><a href={`/decks/${deckId}`}>{deck.name}</a></li>
+
+          {/* {`/decks/${deckId}`} */}
+          <li type="breadcrumb-item"><a href="/">"deck name"</a></li>
           <li type="breadcrumb-item active" current="page">Edit Deck</li>
         </ol>
       </nav>
@@ -58,14 +60,14 @@ return(
                 type="text"
                 id="front"
                 // onChange={changeName}
-                value={deck.name}
+                // value={deck.name}
                 ></input>
             <label> Description </label>
                 <textarea
                 type="text"
                 id="back"
                 // onChange={changeDescription}
-                value={deck.description}
+                // value={deck.description}
                 >
                 </textarea>
                 {/* onClick={handleCancel} */}

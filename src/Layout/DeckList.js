@@ -6,8 +6,8 @@ import { listDecks, deleteDeck } from '../utils/api/index';
 function DeckList() {
 
     //DeckList => listDecks
-    const [decks, setDecks] = useState([]);
-    const { deckId } = useParams();
+    // const [decks, setDecks] = useState([]);
+    // const { deckId } = useParams();
 
 
     // useEffect(() => {
@@ -18,33 +18,28 @@ function DeckList() {
     //   loadDecks();
     // }, []);
 
-    const deckList = decks.map((deck) => {
+    // const deckList = decks.map((deck) => {
       return (
-          <li key={deck.id}>
-              <h1>{deck.name}</h1>
-              <p>{deck.description}</p>
+          <li key="deck id">
+              <h1>"deck name"</h1>
+              <p>"deck description"</p>
 
-              <button type = "button" className="btn btn-danger btn-sm" onClick= {() => deleteDeck(deck.id)}>Delete</button>
-              <Link to={`/decks/${deckId}/study/`}>
+              {/* onClick= {() => deleteDeck(deck.id)} */}
+              <button type = "button" className="btn btn-danger btn-sm" >Delete</button>
+              {/* <Link to={`/decks/${deckId}/study/`}> */}
                 <button type="button">
               Study
                 </button>
-             </Link>
-              <Link to={`/decks/${deckId}`}>
+             {/* </Link> */}
+              {/* <Link to={`/decks/${deckId}`}> */}
                 <button type="button">
               View
                 </button>
-              </Link>
+              {/* </Link> */}
 
           </li>
-      )
-    });
+      )};
 
-    return (
-        <ul>
-            {deckList}
-        </ul>
-    );
-}
+
 
 export default DeckList;

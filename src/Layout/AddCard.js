@@ -6,8 +6,8 @@ import { readDeck, createCard } from '../utils/api/index';
 
 function AddCard ({deck, setDeck, card, setCard}){
 
-    const history = useHistory();
-    const { deckId } = useParams();
+    // const history = useHistory();
+    // const { deckId } = useParams();
 
 //     useEffect(() => {
 //       async function loadDecks() {

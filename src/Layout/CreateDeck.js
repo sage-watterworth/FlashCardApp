@@ -4,8 +4,8 @@ import { createDeck } from '../utils/api/index';
 
 
 function CreateDeck() {
-    let history = useHistory();
-    const [newDeck, setNewDeck] = useState();
+    // let history = useHistory();
+    // const [newDeck, setNewDeck] = useState();
 
 
 //     async function handleSubmit(event) {
