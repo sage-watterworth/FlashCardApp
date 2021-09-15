@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DeckList from "./DeckList";
 import { useHistory } from "react-router-dom";
+import CreateDeck from "./CreateDeck";
 
 
 function Home() {
@@ -14,7 +15,7 @@ function Home() {
           <button
           type="button"
           className="createDeck">
-          <Link to={createDeck}></Link>
+          <Link to={CreateDeck}></Link>
           </button>
         </div>
         <DeckList />

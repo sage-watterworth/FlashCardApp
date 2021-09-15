@@ -5,7 +5,7 @@ import { readDeck } from '../utils/api/index';
 import // not enough cards (not made yet)
 
 
-export function Study (){
+function Study (){
 
     const { deckId } = useParams();
     const history = useHistory();

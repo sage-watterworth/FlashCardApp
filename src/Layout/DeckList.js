@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
-import { listDecks } from '../utils/api/index';
-import { deckDeleteHandler } from './Deck';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { listDecks, deleteDeck } from '../utils/api/index';
 
 
-export function DeckList() {
+function DeckList() {
 
     //DeckList => listDecks
     const [decks, setDecks] = useState([]);
+    const { deckId } = useParams();
 
-    useEffect(() => {
-      async function loadDecks() {
-        const loadedDecks = await listDecks();
-        setDecks(loadedDecks);
-      }
-      loadDecks();
-    }, []);
+
+    // useEffect(() => {
+    //   async function loadDecks() {
+    //     const loadedDecks = await listDecks();
+    //     setDecks(loadedDecks);
+    //   }
+    //   loadDecks();
+    // }, []);
 
     const deckList = decks.map((deck) => {
       return (
@@ -22,7 +24,7 @@ export function DeckList() {
               <h1>{deck.name}</h1>
               <p>{deck.description}</p>
 
-              <button type = "button" onClick= {() => deckDeleteHandler(deck.id)}>Delete</button>
+              <button type = "button" className="btn btn-danger btn-sm" onClick= {() => deleteDeck(deck.id)}>Delete</button>
               <Link to={`/decks/${deckId}/study/`}>
                 <button type="button">
               Study
@@ -44,3 +46,5 @@ export function DeckList() {
         </ul>
     );
 }
+
+export default DeckList;

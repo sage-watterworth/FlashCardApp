@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { createDeck } from '../utils/api/index';
 
 
-export function CreateDeck() {
+function CreateDeck() {
     let history = useHistory();
     const [newDeck, setNewDeck] = useState();
 
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const response = await createDeck(newDeck);
-        history.push(`/decks/${response.id}`);
-    }
+//     async function handleSubmit(event) {
+//         event.preventDefault();
+//         const response = await createDeck(newDeck);
+//         history.push(`/decks/${response.id}`);
+//     }
 
 
-//deck form event change handlers
-    function changeName(event){
-        setNewDeck({ ...newDeck, name: event.target.value});
-    }
+// //deck form event change handlers
+//     function changeName(event){
+//         setNewDeck({ ...newDeck, name: event.target.value});
+//     }
 
-    function changeDescription(event){
-        setNewDeck({...newDeck, description: event.target.value});
-    }
+//     function changeDescription(event){
+//         setNewDeck({...newDeck, description: event.target.value});
+//     }
 
-//cancel brings user back to home screen
-    function handleCancel(event) {
-        event.preventDefault();
-        history.push("/")
-    }
+// //cancel brings user back to home screen
+//     function handleCancel(event) {
+//         event.preventDefault();
+//         history.push("/")
+//     }
 
 
     return(
@@ -47,20 +47,22 @@ export function CreateDeck() {
                         <input
                         type="text"
                         id="name"
-                        onChange={changeName}
+                        // onChange={changeName}
                         ></input>
                     <label> Description </label>
                         <textarea
                         type="text"
                         id="description"
-                        onChange={changeDescription}
+                        // onChange={changeDescription}
                         >
                         </textarea>
-
-                            <button name="cancel" onClick={handleCancel}>Cancel</button>
-
-                            <button name="submit" onClick={handleSubmit}>Submit</button>
+                        {/* onClick={handleCancel} */}
+                            <button name="cancel" >Cancel</button>
+                        {/* onClick={handleSubmit} */}
+                            <button name="submit" >Submit</button>
             </form>
         </div>
     )
 };
+
+export default CreateDeck;

@@ -1,19 +1,20 @@
 
-import React, { useState } from "react";
-import { Route, Switch,} from "react-router-dom";
+import React from "react";
+import { Route, Switch} from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import Home from "./Home";
-import Study from "./Study";
+import Deck from "./Deck";
+// import Study from "./Study";
 import DeckList from "./DeckList";
-import ViewDeck from "./ViewDeck";
 import CreateDeck from "./CreateDeck";
 import EditDeck from "./EditDeck";
 import EditCard from "./EditCard";
 import AddCard from "./AddCard";
 
 
-export function Layout() {
+
+function Layout() {
 
   return (
 <div>
@@ -24,11 +25,11 @@ export function Layout() {
           <DeckList />
         </Route>
         <Route exact path="/decks/:deckId">
-          <ViewDeck />
+          <Deck />
         </Route>
-        <Route exact path="/decks/:deckId/study">
+        {/* <Route exact path="/decks/:deckId/study">
           <Study />
-        </Route>
+        </Route> */}
         <Route exact path="/decks/new">
           <CreateDeck />
         </Route>
@@ -48,3 +49,5 @@ export function Layout() {
 </div>
   );
 }
+
+export default Layout;

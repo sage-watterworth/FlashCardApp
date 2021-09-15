@@ -1,50 +1,52 @@
 import React, { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { readDeck, createCard } from '../utils/api/index';
 
 
-export function AddCard (/* {deck, setDeck, card, setCard} */){
+
+function AddCard ({deck, setDeck, card, setCard}){
 
     const history = useHistory();
     const { deckId } = useParams();
 
-    useEffect(() => {
-      async function loadDecks() {
-        const loadedDeck = await readDeck(deckId);
-        setDeck(loadedDeck);
-      }
-      loadDecks();
-    }, [deckId, setDeck]);
+//     useEffect(() => {
+//       async function loadDecks() {
+//         const loadedDeck = await readDeck(deckId);
+//         setDeck(loadedDeck);
+//       }
+//       loadDecks();
+//     }, [deckId, setDeck]);
 
 
 
-//card form event change handlers
+// //card form event change handlers
 
-    function changeFront(event){
-      setCard({ ...card, front: event.target.value })
-    }
+//     function changeFront(event){
+//       setCard({ ...card, front: event.target.value })
+//     }
 
-    function changeBack(event){
-      setCard({ ...card, back: event.target.value })
-    }
+//     function changeBack(event){
+//       setCard({ ...card, back: event.target.value })
+//     }
 
-//cancel/done brings user back to deckID screen
+// //cancel/done brings user back to deckID screen
 
-    function handleFin() {
-      history.push(`/decks/${deck.id}`)
-    }
+//     function handleFin() {
+//       history.push(`/decks/${deck.id}`)
+//     }
 
-    function handleSave(event) {
-      event.preventDefault();
-      async function updateCard() {
-        await createCard(deckId, card);
-      };
-      updateCard();
-      setCard({
-        front: "",
-        back: "",
-        deckId: deckId,
-      })
-    }
+//     function handleSave(event) {
+//       event.preventDefault();
+//       async function updateCard() {
+//         await createCard(deckId, card);
+//       };
+//       updateCard();
+//       setCard({
+//         front: "",
+//         back: "",
+//         deckId: deckId,
+//       })
+//     }
 
     return (
       <div>
@@ -64,8 +66,9 @@ export function AddCard (/* {deck, setDeck, card, setCard} */){
                     id="front"
                     type="text"
                     placeholder="Front of card"
-                    value={cardValueFront}
-                    onChange={changeFront}/>
+                    value="cardValueFront"
+                    // onChange={changeFront}
+                    />
             </div>
             <div>
                 <label>Back</label>
@@ -73,14 +76,18 @@ export function AddCard (/* {deck, setDeck, card, setCard} */){
                 id="back"
                 type="text"
                 placeholder="Back of card"
-                value={cardValueBack}
-                onChange={changeBack}
+                value="cardValueBack"
+                // onChange={changeBack}
                 />
             </div>
-                <button name="Fin" onClick={handleFin}>Done</button>
-                <button name="Submit" onClick={handleSave}>Save</button>
+            {/* onClick={handleFin} */}
+                <button name="Fin" >Done</button>
+                {/* onClick={handleSave} */}
+                <button name="Submit" >Save</button>
             </form>
         </div>
         </div>
         );
     }
+
+    export default AddCard;
