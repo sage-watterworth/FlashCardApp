@@ -5,24 +5,24 @@ import { listDecks, deleteDeck } from '../utils/api/index';
 
 function DeckList() {
 
-    //DeckList => listDecks
-    // const [decks, setDecks] = useState([]);
-    // const { deckId } = useParams();
+    const [decks, setDecks] = useState([]);
+    const { deckId } = useParams();
 
 
-    // useEffect(() => {
-    //   async function loadDecks() {
-    //     const loadedDecks = await listDecks();
-    //     setDecks(loadedDecks);
-    //   }
-    //   loadDecks();
-    // }, []);
+    useEffect(() => {
+      async function loadDecks() {
+        const loadedDecks = await listDecks();
+        setDecks(loadedDecks);
+      }
+      loadDecks();
+    }, []);
 
-    // const deckList = decks.map((deck) => {
+    const deckList = decks.map((deck) => {
       return (
-          <li key="deck id">
-              <h1>"deck name"</h1>
-              <p>"deck description"</p>
+          <div key ={deck.id} className="card" style={{ width: "50rem" }}>
+
+              <h1 class="card-title">{deck.name}</h1>
+              <p class="card-body">{deck.description}</p>
 
               {/* onClick= {() => deleteDeck(deck.id)} */}
               <button type = "button" className="btn btn-danger btn-sm" >Delete</button>
@@ -37,9 +37,14 @@ function DeckList() {
                 </button>
               {/* </Link> */}
 
-          </li>
-      )};
+          </div>
 
+              )}
+           );
 
+      return (
+        (deckList)
+      )
+              };
 
 export default DeckList;

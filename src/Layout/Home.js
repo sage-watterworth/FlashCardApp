@@ -6,7 +6,7 @@ import CreateDeck from "./CreateDeck";
 
 
 function Home() {
-    // let history = useHistory();
+    let history = useHistory();
 
 
     return (
