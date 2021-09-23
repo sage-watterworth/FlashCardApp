@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router";
+import { Link, useHistory } from "react-router-dom";
 import { readDeck } from '../utils/api/index';
 import // not enough cards (not made yet)
 

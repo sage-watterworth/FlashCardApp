@@ -4,31 +4,32 @@ import { createDeck } from '../utils/api/index';
 
 
 function CreateDeck() {
-    // let history = useHistory();
-    // const [newDeck, setNewDeck] = useState();
+    let history = useHistory();
+    const [newDeck, setNewDeck] = useState();
 
 
-//     async function handleSubmit(event) {
-//         event.preventDefault();
-//         const response = await createDeck(newDeck);
-//         history.push(`/decks/${response.id}`);
-//     }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const response = await createDeck(newDeck);
+        history.push(`/decks/${response.id}`);
+    }
 
 
-// //deck form event change handlers
-//     function changeName(event){
-//         setNewDeck({ ...newDeck, name: event.target.value});
-//     }
+//deck form event change handlers
+    function changeName(event){
+        setNewDeck({ ...newDeck, name: event.target.value});
+    }
 
-//     function changeDescription(event){
-//         setNewDeck({...newDeck, description: event.target.value});
-//     }
+    function changeDescription(event){
+        setNewDeck({...newDeck, description: event.target.value});
+    }
 
-// //cancel brings user back to home screen
-//     function handleCancel(event) {
-//         event.preventDefault();
-//         history.push("/")
-//     }
+//cancel brings user back to home screen
+    function handleCancel(event) {
+        event.preventDefault();
+        history.push("/")
+    }
 
 
     return(

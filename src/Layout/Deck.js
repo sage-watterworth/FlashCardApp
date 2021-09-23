@@ -95,19 +95,7 @@ function Deck (){
               {/* </Link> */}
         </div>
         <div>
-             <li key="card id">
-                 <h1>"card name"</h1>
-                 <h2>Front</h2>
-                 <p>"card front"</p>
-                 <h2>Back</h2>
-                 <p>"card back"</p>
-             {/* <Link to={`/decks/${deckId}/cards/${card.id}/edit`}> */}
-                 <button type="button"> Edit</button>
-             {/* </Link> */}
-
-        {/* onClick={() => cardDeleteHandler(card.id)} */}
-                 <button type="button"> Delete </button>
-             </li>
+             {listCards}
          </div>
     </div>
 

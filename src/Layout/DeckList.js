@@ -15,14 +15,15 @@ function DeckList() {
         setDecks(loadedDecks);
       }
       loadDecks();
+      console.log(decks);
     }, []);
 
     const deckList = decks.map((deck) => {
       return (
           <div key ={deck.id} className="card" style={{ width: "50rem" }}>
 
-              <h1 class="card-title">{deck.name}</h1>
-              <p class="card-body">{deck.description}</p>
+              <h1 className="card-title">{deck.name}</h1>
+              <p className="card-body">{deck.description}</p>
 
               {/* onClick= {() => deleteDeck(deck.id)} */}
               <button type = "button" className="btn btn-danger btn-sm" >Delete</button>
@@ -42,9 +43,7 @@ function DeckList() {
               )}
            );
 
-      return (
-        (deckList)
-      )
-              };
+      return deckList
+     };
 
 export default DeckList;
