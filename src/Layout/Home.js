@@ -1,29 +1,30 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import DeckList from "./DeckList";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import CreateDeck from "./CreateDeck";
-
+import { listDecks } from "../utils/api/index";
+import DeckList from "./DeckList";
 
 function Home() {
-    let history = useHistory();
+  const [decks, setDecks] = useState([]);
+  const history = useHistory();
 
+  useEffect(() => {
+    async function getDeck() {
+      const getDeckFromAPI = await listDecks();
+      setDecks(getDeckFromAPI);
+    }
+    getDeck();
+  }, []);
 
-    return (
-      <div>
-        <div>
-          <button
-          type="button"
-          className="createDeck">
-          <Link to={CreateDeck}></Link>
-          </button>
-        </div>
-        <DeckList />
-      </div>
-    )
-  };
-
-
-
+  return (
+<div>
+    <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={() => history.push("/decks/new")}
+      > Create Deck </button>
+      <DeckList decks={decks} />
+</div>
+  );
+}
 
 export default Home;

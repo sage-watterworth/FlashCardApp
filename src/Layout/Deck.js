@@ -1,104 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import { readDeck, deleteDeck, deleteCard } from '../utils/api/index';
-import EditCard from "./EditCard";
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { readDeck, deleteDeck, deleteCard } from "../utils/api/index";
+import CardList from "./CardList"
 
-
-function Deck (){
+function Deck() {
+    const { deckId } = useParams();
     const history = useHistory();
-    const { deckId} = useParams();
-    const [deck, setDeck] = useState();
-    const [didDelete, setDidDelete] = useState(false);
+    const [deck, setDeck] = useState({});
 
 
-      useEffect(() => {
-          async function loadDecks() {
-            const loadedDeck = await readDeck(deckId);
-            setDeck(loadedDeck);
-          }
-          loadDecks();
-          setDidDelete(false);
-        }, [deckId, didDelete]);
-
-
-         function deckDeleteHandler(deckId) {
-             alert(deckId)
-            const confirmed = window.confirm('Are you sure you want to delete this deck?');
-         if (confirmed) {
-           deleteDeck(deckId)
-              setDidDelete(true)
-             history.push("/")
+    useEffect(() => {
+        async function loadDeck() {
+                if (deckId) {
+                const loadedDeck = await readDeck(deckId);
+                setDeck(()=>loadedDeck);
+                }
             }
-          };
-
-          function cardDeleteHandler(cardId) {
-            const confirmed = window.confirm("Are you sure you want to delete this card?");
-
-            if (confirmed) {
-              deleteCard(cardId);
-              setDidDelete(true)
-            }
-          };
-
-          const listCards = deck.cards.map(card => {
-
-        return(
-        <div>
-            <li key={card.id}>
-                <h1>{card.name}</h1>
-                <h2>Front</h2>
-                <p>{card.front}</p>
-                <h2>Back</h2>
-                <p>{card.back}</p>
-            <Link to={`/decks/${deckId}/cards/${card.id}/edit`}>
-                <button type="button"> Edit</button>
-            </Link>
-                <button type="button" onClick={() => cardDeleteHandler(card.id)}> Delete </button>
-            </li>
-        </div>
-        )
-          });
+        loadDeck();
+    }, [deckId]);
 
 
-        return (
-    <div>
-      <div>
-        <nav label="breadcrumb" />
-            <div>
-                <nav type="breadcrumb">
-                    <ol type="breadcrumb">
-                        <li type="breadcrumb-item"><a href="/">Home</a></li>
-                        <li type="breadcrumb-item active" current="page">"deck name"</li>
-                    </ol>
-                </nav>
+    const handleDeckDelete = async () => {
+        const confirm = window.confirm("Delete this deck? You will not be able to recover it.");
+        if (confirm) {
+            await deleteDeck(deckId);
+            history.push("/");
+        }
+    };
+
+    const handleCardDelete = async ({ target }) => {
+        const confirm = window.confirm("Delete this card? You will not be able to recover it.");
+        if (confirm) {
+            const cardDelete = async () => await deleteCard(target.value);
+            cardDelete();
+            const reloadDeck = await readDeck(deckId);
+            setDeck(reloadDeck);
+            window.location.reload();
+        }
+    }
+
+  if (deck.id) {
+      return (
+<div>
+      <nav aria-label="breadcrumb">
+      <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+              <a href="/"><span className="oi oi-home" /> Home </a>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page"><span className="oi" /> {deck.name}
+          </li>
+      </ol>
+    </nav>
+    <h3>{deck.name}</h3>
+        <p>{deck.description}</p>
+            <div className="row justify-content-between">
+            <div className="col-8">
+                <Link to={`/decks/${deckId}/edit`}>
+                    <button className="btn btn-secondary mr-1">Edit </button>
+                </Link>
+                <Link to={`/decks/${deckId}/study`}>
+                    <button className="btn btn-primary mr-1"> Study </button>
+                </Link>
+                <Link to={`/decks/${deckId}/cards/new`}>
+                    <button className="btn btn-primary"> Add Card </button>
+                </Link>
             </div>
-        </div>
-        <div>
-            <li key="deck id">
-                <h1>{deck.name}</h1>
-                <p>{deck.description}</p>
-            </li>
-        </div>
-        <div>
-
-        {/* onClick= {() => deckDeleteHandler(deck.id)} */}
-               <button type = "button" >Delete</button>
-              {/* <Link to={`/decks/${deckId}/study/`}> */}
-                <button type="button">
-              Study
-                </button>
-             {/* </Link> */}
-              {/* <Link to={`/decks/${deckId}`}> */}
-                <button type="button">
-              View
-                </button>
-              {/* </Link> */}
-        </div>
-        <div>
-             {listCards}
-         </div>
+            <div className="col-2">
+                <button className="btn btn-danger" onClick={handleDeckDelete}>Delete</button>
+            </div>
+            </div>
+        <CardList deck={deck} handleCardDelete={handleCardDelete} />
     </div>
-
-        )};
+        )
+      }
+              return "No deck. Create a new deck."
+};
 
 export default Deck;

@@ -1,49 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { listDecks, deleteDeck } from '../utils/api/index';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { deleteDeck } from "../utils/api";
 
-
-function DeckList() {
-
-    const [decks, setDecks] = useState([]);
-    const { deckId } = useParams();
-
-
-    useEffect(() => {
-      async function loadDecks() {
-        const loadedDecks = await listDecks();
-        setDecks(loadedDecks);
-      }
-      loadDecks();
-      console.log(decks);
-    }, []);
-
-    const deckList = decks.map((deck) => {
-      return (
-          <div key ={deck.id} className="card" style={{ width: "50rem" }}>
-
-              <h1 className="card-title">{deck.name}</h1>
-              <p className="card-body">{deck.description}</p>
-
-              {/* onClick= {() => deleteDeck(deck.id)} */}
-              <button type = "button" className="btn btn-danger btn-sm" >Delete</button>
-              {/* <Link to={`/decks/${deckId}/study/`}> */}
-                <button type="button">
-              Study
-                </button>
-             {/* </Link> */}
-              {/* <Link to={`/decks/${deckId}`}> */}
-                <button type="button">
-              View
-                </button>
-              {/* </Link> */}
-
+function DeckList({ decks }) {
+  const history = useHistory();
+  return (
+    <ul className="deck-cards">
+      {decks.map((deck) => (
+        <li key={deck.id}>
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">{deck.name}</h5>
+              <h6 className="card-subtitle mb-2 text-muted">
+                {deck.cards.length} cards
+              </h6>
+              <p className="card-text">{deck.description}</p>
+              <a href={`/decks/${deck.id}`} className="btn btn-secondary">
+                View
+              </a>
+              <a href={`/decks/${deck.id}/study`} className="btn btn-primary">
+                Study
+              </a>
+              <a
+                href="/"
+                className="btn btn-danger"
+                onClick={(event) => {
+                  event.preventDefault();
+                  if (
+                    window.confirm(
+                      "Delete this deck? You won't be able to recover it."
+                    )
+                  ) {
+                    deleteDeck(`${deck.id}`);
+                    history.go("/");
+                  }
+                }}
+              >
+                Delete
+              </a>
+            </div>
           </div>
-
-              )}
-           );
-
-      return deckList
-     };
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default DeckList;

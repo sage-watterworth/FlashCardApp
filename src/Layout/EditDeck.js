@@ -1,82 +1,96 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router-dom';
-import { readDeck, updateDeck } from '../utils/api/index';
-
-function EditDeck() {
-//   const history = useHistory();
-//   const { deckId } = useParams();
-//   const [deck, setDeck] = useState({});
-
-    // useEffect(() => {
-    //     async function loadDecks() {
-    //       const loadedDeck = await readDeck(deckId);
-    //       setDeck(loadedDeck);
-    //     }
-    //     loadDecks();
-    //   }, [deckId, setDeck]);
+import React, {useState, useEffect} from "react"
+import {useParams, Link, useHistory} from "react-router-dom"
+import { readDeck, updateDeck } from "../utils/api";
+import DeckForm from "./DeckForm"
 
 
+function EditDeck () {
+    const initialFormState = {
+      name: "",
+      description: "",
+    };
+    const [deck, setDeck] = useState({ ...initialFormState });
+    const params = useParams();
+    const deckId = params.deckId;
 
- //event change handlers on form fields including:
- //NAME
- //DESCRIPTION
- //CANCEL FUNCTION
-//SAVE FUNCTION
+//load deck data
+    useEffect(() => {
+      async function loadData() {
+        try {
+          const dataFromAPI = await readDeck(deckId);
+          setDeck(dataFromAPI);
+        } catch (error) {
+          if (error.name === "AbortError") {
+            console.log("Aborted");
+          } else {
+            throw error;
+          }
+        }
+      }
+      loadData();
+    }, [deckId]);
+//re render with new deckID
 
-//  function changeName(event){
-//     setDeck({ ...deck, name: event.target.value })
-//   }
+//change handler
+    const handleChange = ({ target }) => {
+      const value = target.value;
+      setDeck({...deck, [target.name]: value,
+        });
+    };
 
-//   function changeDescription(event){
-//     setDeck({ ...deck, description: event.target.value })
-//   }
-
-//   function handleCancel() {
-//     history.push(`/decks/${deck.id}`)
-//   }
-
-//   function handleSave (event) {
-//     event.preventDefault();
-//     updateDeck(deck).then((response) => history.push(`/decks/${deck.id}`))
-//   }
+//submit handler
+    const history = useHistory();
+    const handleSubmit = (event) => {
+      event.preventDefault();
 
 
-return(
-    <div>
-      <nav label="breadcrumb">
-        <ol type="breadcrumb">
-          <li type="breadcrumb-item"><a href="/">Home</a></li>
+//update data on specific deckID
+      async function updateData() {
+        try {
+          await updateDeck(deck);
+          history.push(`/decks/${deckId}`);
+        } catch (error) {
+          if (error.name === "AbortError") {
+            // Ignore `AbortError`
+            console.log("Aborted");
+          } else {
+            throw error;
+          }
+        }
+      }
+      updateData();
+    };
 
-          {/* {`/decks/${deckId}`} */}
-          <li type="breadcrumb-item"><a href="/">"deck name"</a></li>
-          <li type="breadcrumb-item active" current="page">Edit Deck</li>
-        </ol>
-      </nav>
+
+    return (
       <div>
-        <form>
-        <h1>Edit Deck</h1>
-            <label> Name </label>
-                <input
-                type="text"
-                id="front"
-                // onChange={changeName}
-                // value={deck.name}
-                ></input>
-            <label> Description </label>
-                <textarea
-                type="text"
-                id="back"
-                // onChange={changeDescription}
-                // value={deck.description}
-                >
-                </textarea>
-                {/* onClick={handleCancel} */}
-                    <button name="cancel" >Cancel</button>
-                    {/* onClick={handleSave} */}
-                    <button name="submit" >Save</button>
+        <nav aria-label="breadcrumb">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item" key="0">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="breadcrumb-item" key="1">
+              <Link to={`/decks/${deckId}`}>Deck Name</Link>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page" key="2">
+              Edit Deck
+            </li>
+          </ol>
+        </nav>
+
+{/* deck form component renders here */}
+        <h2>Edit Deck</h2>
+        <form onSubmit={handleSubmit}>
+          <DeckForm formData={deck} handleChange={handleChange} />
+          <Link to={`/decks/${deckId}`} className="btn btn-secondary">
+            Cancel
+          </Link>{" "}
+          &nbsp;
+          <button type="submit" value="submit" className="btn btn-primary">
+            Save
+          </button>
         </form>
       </div>
-    </div>
-)
-}
+    );
+  }
 export default EditDeck;

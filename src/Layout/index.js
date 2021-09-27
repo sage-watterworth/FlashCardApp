@@ -5,8 +5,7 @@ import Header from "./Header";
 import NotFound from "./NotFound";
 import Home from "./Home";
 import Deck from "./Deck";
-// import Study from "./Study";
-import DeckList from "./DeckList";
+import Study from "./Study";
 import CreateDeck from "./CreateDeck";
 import EditDeck from "./EditDeck";
 import EditCard from "./EditCard";
@@ -22,23 +21,22 @@ function Layout() {
       <Switch>
         <Route exact path="/">
           <Home />
-          <DeckList />
         </Route>
         <Route exact path="/decks/:deckId">
           <Deck />
         </Route>
-        {/* <Route exact path="/decks/:deckId/study">
+        <Route exact path="/decks/:deckId/study">
           <Study />
-        </Route> */}
+        </Route>
         <Route exact path="/decks/new">
           <CreateDeck />
         </Route>
         <Route exact path="/decks/:deckId/edit">
           <EditDeck />
         </Route>
-        {/* <Route exact path="/decks/:deckId/cards/:cardId/edit">
+        <Route exact path="/decks/:deckId/cards/:cardId/edit">
           <EditCard />
-        </Route> */}
+        </Route>
         <Route exact path="/decks/:deckId/cards/new">
           <AddCard />
         </Route>
