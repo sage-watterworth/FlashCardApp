@@ -21,7 +21,7 @@ function EditDeck () {
           setDeck(dataFromAPI);
         } catch (error) {
           if (error.name === "AbortError") {
-            console.log("Aborted");
+            // console.log("Aborted");
           } else {
             throw error;
           }
@@ -52,7 +52,7 @@ function EditDeck () {
         } catch (error) {
           if (error.name === "AbortError") {
             // Ignore `AbortError`
-            console.log("Aborted");
+            // console.log("Aborted");
           } else {
             throw error;
           }

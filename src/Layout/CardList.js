@@ -1,85 +1,41 @@
-import React, { useState } from "react";
-import { useParams, Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 
-function CardList({ deck, cards }) {
-  const history = useHistory();
-  const deckId = useParams();
-  const [frontSide, setFrontSide] = useState(true);
-  let [currentCard, setCurrentCard] = useState(0);
-
-console.log(deck);
-
-  //Restart cards
-  const handleLast = () => {
-    const result = window.confirm(
-      "Restart cards? Click cancel to return to the home page."
-    );
-    if (result === true) {
-      setCurrentCard(0);
-    } else {
-      history.push("/");
-    }
-  };
+export default function CardsList({ deck, handleCardDelete }) {
+    const { deckId } = useParams();
 
 
-  //Next button
-  function handleNext() {
-    if (currentCard + 1 === deck.cards.length) {
-      handleLast();
-      return
-    }
-    setCurrentCard(currentCard + 1);
-    setFrontSide(() => !frontSide);
-  }
+    //return front and back on screen, 1 of x cards not included
+        return (
+        <div className="container">
+          <h2>Cards</h2>
+          <div className="card-list">
+              {deck.cards.map((card, index) => (
+                  <div key={index} className="card">
+                      <div className="card-body">
+                          <div className="container">
+                              <div className="row justify-content-start my-2">
+                                  <div className="col-6">
+                                      {card.front}
+                                  </div>
+                                  <div className="col-6">
+                                      {card.back}
+                                  </div>
+                              </div>
+                              <div className="row">
+                                  <div className="col-9">
 
-
-  //Card flip
-  const flipHandler = () => {
-    setFrontSide(() => !frontSide);
-  };
-
-  if (!deck.cards.length) {
-    console.log(deck.cards);
-    return null;
-  }
-
-
-// const cardList = deck.cards.map((card) => {
-
-//   return (
-
-//   );
-// })
-
-
-return (
-  <div>
-          <div className="card" key={deck.cards[currentCard].id}>
-            <div className="card-body">
-              <h5 className="card-title">
-                Card {currentCard + 1} of {deck.cards.length}
-              </h5>
-              <p className="card-text">
-                {frontSide
-                  ? deck.cards[currentCard].front
-                  : deck.cards[currentCard].back}
-              </p>
-              <button className="btn btn-secondary" onClick={flipHandler}>
-                Flip
-              </button>
-              {frontSide ? null : (
-                <button className="btn btn-primary" onClick={handleNext}>
-                  Next
-                </button>
-              )}
+                                  </div>
+                                  <div className="col-3 pt-2 pb-1">
+                                      <Link to={`/decks/${deckId}/cards/${card.id}/edit`}><button className="btn btn-secondary mr-1"><i className="bi bi-pencil mr-1"></i>Edit</button></Link>
+                                      <button value={card.id} onClick={handleCardDelete} className="btn btn-danger bi-trash">Delete</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              ))}
+              </div>
             </div>
-          </div>
-        </div>
-)
-
-}
-
-
-
-
-export default CardList;
+        )
+    };

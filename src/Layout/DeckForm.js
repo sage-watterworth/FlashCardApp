@@ -4,8 +4,9 @@ import React from "react"
 function DeckForm({ formData, handleChange }){
 
     return (
-      <div>
-        <label>Name:</label>
+      <form>
+<div>
+        <label className="form-label">Name:</label>
         <input
           required
           id="name"
@@ -16,7 +17,9 @@ function DeckForm({ formData, handleChange }){
           style={{ width: "100%" }}
         />
 
-        <label>Description:</label>
+
+
+        <label className="form-label">Description:</label>
         <textarea
           required
           id="description"
@@ -27,7 +30,9 @@ function DeckForm({ formData, handleChange }){
           value={formData.description}
           style={{ width: "100%" }}
         />
-      </div>
+</div>
+      </form>
+
     );
   };
 

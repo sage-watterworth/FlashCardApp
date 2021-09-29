@@ -22,7 +22,7 @@ function EditCard() {
           setCard(datafromApie2);
         } catch (error) {
           if (error.name === "AbortError") {
-            console.log("Aborted");
+            // console.log("Aborted");
           } else {
             throw error;
           }
@@ -41,14 +41,14 @@ function EditCard() {
     const history = useHistory();
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log("Submitted:", card);
+      // console.log("Submitted:", card);
       async function updateData() {
         try {
           await updateCard(card);
           history.push(`/decks/${deckId}`);
         } catch (error) {
           if (error.name === "AbortError") {
-            console.log("Aborted");
+            // console.log("Aborted");
           } else {
             throw error;
           }

@@ -34,32 +34,38 @@ function CreateDeck (){
             </li>
         </ol>
         </nav>
+
+
     <form className="form-group" onSubmit={submitHandler}>
+      <div>
         <label
         className="form-label"
-        htmlFor="name"> Deck Name:
+        > Deck Name: </label>
         <input
         className="form-control"
         type="text"
         id="name"
         name="name"
         onChange={changeHandler}
+        style={{width: "100%"}}
+        rows={3}
         />
-        </label>
 
-        <label
-        htmlFor="description">
-        Description:
+
+        <label className="form-label">
+        Description:  </label>
         <textarea
         className="form-control"
         id="description"
         name="description"
         onChange={changeHandler}
         rows={3}
+        style={{width: "100%"}}
         />
-        </label>
+
       <button className="btn btn-primary" type="submit">Submit</button>
       <button className="btn btn-dark" onClick={() => history.push("/")}>Cancel</button>
+      </div>
       </form>
       </div>
   )
