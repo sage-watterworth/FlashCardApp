@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { listDecks } from "../utils/api/index";
 import DeckList from "./DeckList";
 
@@ -7,22 +7,29 @@ function Home() {
   const [decks, setDecks] = useState([]);
   const history = useHistory();
 
-  useEffect(() => {
-    async function getDeck() {
-      const getDeckFromAPI = await listDecks();
-      setDecks(getDeckFromAPI);
-    }
-    getDeck();
-  }, []);
+
+  useEffect(loadDecks, []);
+
+  function loadDecks() {
+    listDecks().then(setDecks);
+  }
+
+  // useEffect(() => {
+  //   async function getDeck() {
+  //     const getDeckFromAPI = await listDecks();
+  //     setDecks(getDeckFromAPI);
+  //   }
+  //   getDeck();
+  // }, []);
 
   return (
 <div>
-    <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => history.push("/decks/new")}
-      > Create Deck </button>
-      <DeckList decks={decks} />
+  <Link to="/decks/new">
+      Create Deck
+    </Link>
+    <div>
+    <DeckList decks={decks} />
+    </div>
 </div>
   );
 }

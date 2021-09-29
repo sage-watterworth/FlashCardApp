@@ -59,7 +59,8 @@ function Deck() {
                     <button className="btn btn-secondary mr-1">Edit </button>
                 </Link>
                 <Link to={`/decks/${deckId}/study`}>
-                    <button className="btn btn-primary mr-1"> Study </button>
+                    <button
+                    className="btn btn-primary mr-1"> Study </button>
                 </Link>
                 <Link to={`/decks/${deckId}/cards/new`}>
                     <button className="btn btn-primary"> Add Card </button>
