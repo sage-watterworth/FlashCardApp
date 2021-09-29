@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { listDecks } from "../utils/api/index";
 import DeckList from "./DeckList";
 
 function Home() {
   const [decks, setDecks] = useState([]);
-  const history = useHistory();
+  // const history = useHistory();
 
 
   useEffect(loadDecks, []);
@@ -14,13 +14,6 @@ function Home() {
     listDecks().then(setDecks);
   }
 
-  // useEffect(() => {
-  //   async function getDeck() {
-  //     const getDeckFromAPI = await listDecks();
-  //     setDecks(getDeckFromAPI);
-  //   }
-  //   getDeck();
-  // }, []);
 
   return (
 <div>
