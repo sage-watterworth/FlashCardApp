@@ -75,8 +75,8 @@ function EditCard() {
 
   {/* card form component renders here */}
         <h2>Edit Card</h2>
-        <form onSubmit={handleSubmit}>
-          <CardForm formData={card} handleChange={handleChange} />
+        <div>
+          <CardForm formData={card} handleChange={handleChange} handleSubmit={handleSubmit} />
           <Link to={`/decks/${deckId}`} className="btn btn-secondary">
             Cancel
           </Link>{" "}
@@ -84,7 +84,7 @@ function EditCard() {
           <button type="submit" className="btn btn-primary">
             Save
           </button>
-        </form>
+        </div>
       </div>
     );
   }

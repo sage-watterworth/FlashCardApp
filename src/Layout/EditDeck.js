@@ -80,8 +80,8 @@ function EditDeck () {
 
 {/* deck form component renders here */}
         <h2>Edit Deck</h2>
-        <form onSubmit={handleSubmit}>
-          <DeckForm formData={deck} handleChange={handleChange} />
+        <div>
+          <DeckForm formData={deck} handleChange={handleChange} handleSubmit={handleSubmit} />
           <Link to={`/decks/${deckId}`} className="btn btn-secondary">
             Cancel
           </Link>{" "}
@@ -89,7 +89,7 @@ function EditDeck () {
           <button type="submit" value="submit" className="btn btn-primary">
             Save
           </button>
-        </form>
+        </div>
       </div>
     );
   }

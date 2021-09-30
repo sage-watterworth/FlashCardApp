@@ -1,10 +1,10 @@
 import React from "react"
 
 
-function DeckForm({ formData, handleChange }){
+function DeckForm({ formData, handleChange, handleSubmit }){
 
     return (
-      <form>
+      <form onSubmit = {handleSubmit} >
 <div>
         <label className="form-label">Name:</label>
         <input
